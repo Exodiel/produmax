@@ -1,4 +1,6 @@
 import express, {Application} from "express";
+import { Server, createServer } from "http";
+import socketIO from 'socket.io';
 import morgan from 'morgan';
 import path from 'path';
 import cors from "cors";
@@ -8,6 +10,8 @@ import indexRoutes from './routes/indexRoutes';
 
 export class App {
     private app: Application;
+    private server: Server;
+    private io: SocketIO.Server;
     private readonly port: number | string;
 
     constructor(port?: number | string){
@@ -16,6 +20,8 @@ export class App {
         this.settings();
         this.middlewares();
         this.routes();
+        this.server = createServer(this.app);
+        this.io = socketIO(this.server);
     }
 
     private settings(): void {
@@ -39,7 +45,12 @@ export class App {
 
     async listen(): Promise<void>{
         await this.app.listen(this.app.get('port'));
-
+        
+        this.io.on('connect', (socket: any) => {
+            socket.emit('connection', (client: any) => {
+                console.log('Connected client on port %s.', this.port);
+            })
+        });
         console.log('> Server on port ', this.app.get('port'));
     }
 }
