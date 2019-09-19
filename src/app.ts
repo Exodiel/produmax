@@ -1,6 +1,6 @@
 import express, {Application} from "express";
 import { Server, createServer } from "http";
-import socketIO from 'socket.io';
+import WebSocket from 'ws';
 import morgan from 'morgan';
 import path from 'path';
 import cors from "cors";
@@ -11,7 +11,7 @@ import indexRoutes from './routes/indexRoutes';
 export class App {
     private app: Application;
     private server: Server;
-    private io: SocketIO.Server;
+    private wss: WebSocket.Server;
     private readonly port: number | string;
 
     constructor(port?: number | string){
@@ -21,7 +21,7 @@ export class App {
         this.middlewares();
         this.routes();
         this.server = createServer(this.app);
-        this.io = socketIO(this.server);
+        this.wss = new WebSocket.Server({ server: this.server });
     }
 
     private settings(): void {
@@ -44,12 +44,16 @@ export class App {
     }
 
     async listen(): Promise<void>{
-        await this.app.listen(this.app.get('port'));
+        await this.server.listen(this.app.get('port'));
         
-        this.io.on('connect', (socket: any) => {
-            socket.emit('connection', (client: any) => {
-                console.log('Connected client on port %s.', this.port);
-            })
+        this.wss.on('connection', (ws: WebSocket) => {
+            
+            ws.on('message', (message: string) => {
+                console.log('received: %s', message);
+                ws.send(`Hello, you sent -> ${message}`);
+            });
+            
+            ws.send('Hola, soy un servidor de websockets');
         });
         console.log('> Server on port ', this.app.get('port'));
     }
