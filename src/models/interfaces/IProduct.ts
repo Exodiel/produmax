@@ -9,6 +9,6 @@ export interface IProduct extends Document {
     unitPrice: number;
     comboPrice?: number;
     imagePath: string;
-    unit_id: IUnit['_id'];
-    category_id: ICategory['_id'];
+    unitId: IUnit['_id'];
+    categoryId: ICategory['_id'];
 }

@@ -35,7 +35,7 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    rol_id: {
+    rolId: {
         type: ObjectId,
         required: true,
         ref: 'Rol'

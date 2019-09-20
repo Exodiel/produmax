@@ -26,12 +26,12 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    unit_id: {
+    unitId: {
         type: Schema.Types.ObjectId,
         required: true,
         ref: 'Unit'
     },
-    category_id: {
+    categoryId: {
         type: Schema.Types.ObjectId,
         required: true,
         ref: 'Category'

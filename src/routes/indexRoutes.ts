@@ -5,6 +5,7 @@ import categoryRoutes from "./categoryRoutes";
 import productRoutes from './productRoutes';
 import userRoutes from "./userRoutes";
 import rolRoutes from "./rolRoutes";
+import orderRoutes from "./orderRoutes";
 import authRoutes from "./authRoutes";
 
 /**
@@ -30,6 +31,7 @@ class IndexRoutes {
         this.router.use('/', productRoutes);
         this.router.use('/', userRoutes);
         this.router.use('/', rolRoutes);
+        this.router.use('/', orderRoutes);
         this.router.use('/auth', authRoutes)
 
     }

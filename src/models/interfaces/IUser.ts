@@ -9,5 +9,5 @@ export interface IUser extends Document {
     email: string;
     password: string;
     phone: string;
-    rol_id: IRol['_id'];
+    rolId: IRol['_id'];
 }

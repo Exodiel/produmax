@@ -107,8 +107,8 @@ class ProductController {
           stock: stock,
           unitPrice: unitPrice,
           imagePath: path,
-          unit_id: unit ? unit._id : "", // guardo la referencia al documento de la unidad
-          category_id: category ? category._id : "" // hago lo mismo con la categoría
+          unitId: unit ? unit._id : "", // guardo la referencia al documento de la unidad
+          categoryId: category ? category._id : "" // hago lo mismo con la categoría
         };
         const product = new Product(newProduct); // creo un nuevo documento
         await product.save(); // persisto en la base de datos
@@ -213,8 +213,8 @@ class ProductController {
         updatedProduct.imagePath = file.path
           ? file.path
           : updatedProduct.imagePath; // guardo la ruta con la seguridad de que existe el objeto file
-        updatedProduct.unit_id = unit ? unit._id : ""; // guardo la referencia al documento de la unidad
-        updatedProduct.category_id = category ? category._id : ""; // hago lo mismo con la categoría
+        updatedProduct.unitId = unit ? unit._id : ""; // guardo la referencia al documento de la unidad
+        updatedProduct.categoryId = category ? category._id : ""; // hago lo mismo con la categoría
 
         await unlink(existPath); // elimino la ruta de la imagen anterior
         await updatedProduct.save(); // persisto en la base de datos

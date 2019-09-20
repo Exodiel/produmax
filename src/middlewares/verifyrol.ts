@@ -21,7 +21,7 @@ export function verifyRol(rol: string){
             if (!rolModel) return res.status(404).json({message: 'No se encuentra el rol'});
 
             
-            if (user.rol_id !== rolModel._id) {
+            if (user.rolId !== rolModel._id) {
                 next();
             }else {
                 return res.status(401).json({message: 'No se encuentra autorizado'});
