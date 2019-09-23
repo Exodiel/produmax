@@ -3,13 +3,13 @@ import WebSocket = require("ws");
 
 
 export class Gateway {
-    wss: WebSocket.Server;
+    public wss: WebSocket.Server;
 
     constructor(server: Server) {
         this.wss = new WebSocket.Server( {server: server} );
     }
 
-    handleConnection(ws: WebSocket) {
+    // handleConnection(ws: WebSocket) {
         
-    }
+    // }
 }

@@ -4,6 +4,7 @@ import { resolve, extname } from "path";
 import { unlink } from "fs-extra";
 import Unit from "../models/Unit";
 import Category from "../models/Category";
+import WebSocket from "ws";
 
 /**
  * @author Jipson Saad
@@ -219,6 +220,7 @@ class ProductController {
         await unlink(existPath); // elimino la ruta de la imagen anterior
         await updatedProduct.save(); // persisto en la base de datos
 
+        
         return res.status(200).json({
           message: "Producto actualizado correctamente",
           product: updatedProduct

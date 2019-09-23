@@ -6,6 +6,7 @@ import path from 'path';
 import cors from "cors";
 import helmet from "helmet";
 
+// import { Gateway } from './gateway';
 import indexRoutes from './routes/indexRoutes';
 
 export class App {
@@ -51,6 +52,10 @@ export class App {
             ws.on('message', (message: string) => {
                 console.log('received: %s', message);
                 ws.send(`Hello, you sent -> ${message}`);
+            });
+
+            ws.on('product_created', (data: any) => {
+                ws.send(data);
             });
             
             ws.send('Hola, soy un servidor de websockets');
